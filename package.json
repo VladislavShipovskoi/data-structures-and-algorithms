@@ -3,14 +3,21 @@
   "version": "1.0.0",
   "description": "data-structures-and-algorithms",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "devDependencies": {
+    "@babel/preset-env": "^7.21.5",
+    "babel-jest": "^29.5.0",
     "jest": "^29.5.0"
   }
 }

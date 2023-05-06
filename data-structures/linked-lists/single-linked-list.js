@@ -62,8 +62,8 @@ export default class LinkedList {
       node.next = this.#head;
       this.#head = node;
     }
-    this.size += 1;
-    return this;
+    this.#length += 1;
+    return this.#head;
   }
 
   removeFirst() {
@@ -94,7 +94,7 @@ export default class LinkedList {
     }
 
     this.#length += 1;
-    return this;
+    return this.#tail;
   }
 
   removeLast() {
@@ -251,4 +251,7 @@ export default class LinkedList {
 
     return result;
   }
+
+  //TODO - implement
+  fromArray() {}
 }
