@@ -1,80 +1,254 @@
 class Node {
-  constructor(value) {
+  constructor(value = null, next = null) {
     this.value = value;
-    this.next = null;
+    this.next = next;
   }
 }
 
 export default class LinkedList {
+  #head;
+  #tail;
+  #length;
+
   constructor() {
-    this.head = null;
-    this.tail = null;
-    this.length = 0;
+    this.#head = null;
+    this.#tail = null;
+    this.#length = 0;
   }
 
-  push(value) {
-    const node = new Node(value);
+  get head() {
+    return this.#head;
+  }
 
-    if (this.length === 0) {
-      this.head = node;
-      this.tail = this.head;
-    } else {
-      this.tail.next = node;
-      this.tail = node;
+  get tail() {
+    return this.#tail;
+  }
+
+  get size() {
+    return this.#length;
+  }
+
+  add(index, value) {
+    let innerIndex = 0;
+
+    let previous = null;
+    let current = this.#head;
+
+    try {
+      while (current) {
+        if (index === innerIndex) {
+          const newNode = new Node(value, previous.next);
+          previous.next = newNode;
+          newNode.next = current;
+          return current;
+        }
+
+        previous = current;
+        current = current.next;
+        innerIndex += 1;
+      }
+      throw new Error("Index out Of bounds exception");
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    this.length++;
+  addFirst(value) {
+    const node = new Node(value);
+    if (!this.#head) {
+      this.#head = node;
+      this.#tail = this.#head;
+    } else {
+      node.next = this.#head;
+      this.#head = node;
+    }
+    this.size += 1;
     return this;
   }
 
-  pop() {
-    if (!this.head) return null;
-    let current = this.head;
-    if (this.length === 1) {
-      this.head = null;
-      this.tail = null;
+  removeFirst() {
+    if (!this.#head) {
+      return null;
+    }
+
+    const current = this.#head;
+    this.#head = current.next;
+    this.#length -= 1;
+
+    if (this.#length === 0) {
+      this.#tail = null;
+    }
+
+    return current;
+  }
+
+  addLast(value) {
+    const node = new Node(value);
+
+    if (this.#length === 0) {
+      this.#head = node;
+      this.#tail = this.#head;
     } else {
-      let newTail = current;
-      while (current?.next) {
-        if (current.next === this.tail) {
-          current.next = null;
-          this.tail = current;
+      this.#tail.next = node;
+      this.#tail = node;
+    }
+
+    this.#length += 1;
+    return this;
+  }
+
+  removeLast() {
+    if (!this.#head) {
+      return null;
+    }
+
+    let current = this.#head;
+
+    if (this.#length === 1) {
+      this.#head = null;
+      this.#tail = null;
+    } else {
+      let previous = null;
+
+      while (current) {
+        if (current === this.#tail) {
+          previous.next = null;
+          this.#tail = previous;
+          this.#length -= 1;
+          return current;
         }
-        newTail = current;
+
+        previous = current;
         current = current.next;
       }
     }
-    this.length--;
-    return current;
   }
 
-  shift() {
-    if (!this.head) return null;
-    const current = this.head;
-    this.head = current.next;
-    this.length--;
-
-    if (this.length === 0) {
-      this.tail = null;
+  contains(value) {
+    if (!this.#head) {
+      return null;
     }
 
-    return current;
-  }
+    let current = this.#head;
 
-  unshift(value) {
-    const node = new Node(value);
-    if (!this.head) {
-      this.head = node;
-      this.tail = this.head;
-    } else {
-      node.next = this.head;
-      this.head = node;
+    while (current) {
+      if (current.value === value) {
+        return true;
+      }
+      current = current.next;
     }
-    this.size++;
-    return this;
+
+    return false;
   }
 
-  size() {
-    return this.length;
+  get(index) {
+    let innerIndex = 0;
+
+    let current = this.#head;
+
+    try {
+      while (current) {
+        if (index === innerIndex) {
+          current.next;
+          return current;
+        }
+        current = current.next;
+        innerIndex += 1;
+      }
+      throw new Error("Index out Of bounds exception");
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  indexOf(value) {
+    let innerIndex = 0;
+
+    let current = this.#head;
+
+    while (current) {
+      if (current.value === value) {
+        return innerIndex;
+      }
+      current = current.next;
+      innerIndex += 1;
+    }
+
+    return -1;
+  }
+
+  lastIndexOf(value) {
+    let innerIndex = 0;
+    let result = -1;
+
+    let current = this.#head;
+
+    while (current) {
+      if (current.value === value) {
+        result = innerIndex;
+      }
+      current = current.next;
+      innerIndex += 1;
+    }
+
+    return result;
+  }
+
+  remove(index) {
+    let innerIndex = 0;
+
+    let current = this.#head;
+    let previous = null;
+
+    try {
+      while (current) {
+        if (innerIndex === index) {
+          previous.next = current.next;
+          return true;
+        }
+        previous = current;
+        current = current.next;
+        innerIndex += 1;
+      }
+      throw new Error("Index out Of bounds exception");
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  set(index, value) {
+    let innerIndex = 0;
+
+    let current = this.#head;
+
+    try {
+      while (current) {
+        if (innerIndex === index) {
+          current.value = value;
+          return value;
+        }
+        innerIndex += 1;
+        current = current.next;
+      }
+      throw new Error("Index out Of bounds exception");
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  toArray() {
+    if (!this.#head) {
+      return [];
+    }
+
+    const result = [];
+    let current = this.#head;
+
+    while (current) {
+      result.push(current.value);
+      current = current.next;
+    }
+
+    return result;
   }
 }
