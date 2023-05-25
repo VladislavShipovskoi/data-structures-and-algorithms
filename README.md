@@ -1,3 +1,4 @@
+[![Tests](https://github.com/VladislavShipovskoi/data-structures-and-algorithms/actions/workflows/node.js.yml/badge.svg)](https://github.com/VladislavShipovskoi/data-structures-and-algorithms/actions/workflows/node.js.yml)
 # Data structures and algorithms
 Algorithms and data structures in one place.
  
