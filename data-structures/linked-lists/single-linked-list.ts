@@ -112,14 +112,12 @@ class LinkedList<T> implements ILinkedList<T> {
     }
 
     let node = this.head;
-    let innerIndex = 0;
 
-    while (node.next) {
-      if (innerIndex === index) {
-        return node;
-      }
-      node = node.next;
+    for (let i = 0; i < index; i++) {
+      node = node.next as Node<T>;
     }
+
+    return node;
   }
 
   set(index: number, value: T): Node<T> | undefined {
@@ -127,20 +125,10 @@ class LinkedList<T> implements ILinkedList<T> {
       throw new Error("Index out Of bounds exception");
     }
 
-    if (!this.head) {
-      return undefined;
-    }
-
-    let node = this.head;
-    let innerIndex = 0;
-
-    while (node.next) {
-      if (innerIndex === index) {
-        node.value = value;
-        return node;
-      }
-      node = node.next;
-    }
+    const node = this.get(index);
+    if (!node) return;
+    node.value = value;
+    return node;
   }
 
   insert(index: number, value: T): Node<T> | undefined {

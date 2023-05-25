@@ -41,17 +41,24 @@ describe("linked-list with items", () => {
     });
 
     test("append", () => {
-      console.log(list);
-      const node1 = list!.append(nodeValue);
-      const node2 = list!.append(headNodeValue);
+      const node1 = list!.append(headNodeValue);
+      const node2 = list!.append(nodeValue);
 
-      expect(_.isEqual(node2, new Node(headNodeValue))).toBe(true);
+      expect(_.isEqual(node2, new Node(nodeValue))).toBe(true);
       expect(_.isEqual(list!.head, node1)).toBe(true);
       expect(_.isEqual(list!.tail, node2)).toBe(true);
       expect(list!.length).toBe(2);
     });
 
-    test("add", () => {});
+    test("insert", () => {
+      const node1 = list!.append(headNodeValue);
+      const node2 = list!.append(nodeValue);
+      list!.insert(1, 3);
+      expect(_.isEqual(list!.head, node1)).toBe(true);
+      expect(_.isEqual(list!.get(1), new Node(3, node2))).toBe(true);
+      expect(_.isEqual(list!.tail, node2)).toBe(true);
+      expect(list!.length).toBe(3);
+    });
   });
 
   describe("remove items from linked-list", () => {
@@ -85,6 +92,46 @@ describe("linked-list with items", () => {
       expect(_.isEqual(list!.tail, node2)).toBe(true);
     });
 
-    test("remove", () => {});
+    test("remove", () => {
+      const node1 = list!.append(headNodeValue);
+      const node2 = list!.append(nodeValue);
+      list!.insert(1, 3);
+
+      const removedNode = list!.remove(1);
+
+      expect(_.isEqual(removedNode, new Node(3))).toBe(true);
+      expect(_.isEqual(list!.head, node1)).toBe(true);
+      expect(_.isEqual(list!.tail, node2)).toBe(true);
+      expect(list!.length).toBe(2);
+    });
+  });
+
+  test("get", () => {
+    const node1 = list!.append(headNodeValue);
+    const node2 = list!.append(nodeValue);
+    const node3 = list!.append(3);
+
+    expect(_.isEqual(list!.get(0), node1)).toBe(true);
+    expect(_.isEqual(list!.get(1), node2)).toBe(true);
+    expect(_.isEqual(list!.get(2), node3)).toBe(true);
+  });
+
+  test("set", () => {
+    list!.append(headNodeValue);
+    list!.append(nodeValue);
+    list!.append(3);
+
+    const changedNode = list!.set(1, 10);
+    expect(_.isEqual(changedNode, list!.get(1))).toBe(true);
+  });
+
+  test("traverse", () => {
+    list!.append(headNodeValue);
+    list!.append(nodeValue);
+    list!.append(3);
+
+    const expectedValue = [1, 2, 3];
+
+    expect(list!.traverse()).toStrictEqual(expectedValue);
   });
 });
