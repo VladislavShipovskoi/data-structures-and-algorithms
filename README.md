@@ -5,6 +5,7 @@ Algorithms and data structures in one place.
  ## Data Structures
   ### Linked Lists
    - [Single linked list](https://github.com/VladislavShipovskoi/data-structures-and-algorithms/blob/main/data-structures/linked-lists/single-linked-list.ts)
+   - [Double linked list](https://github.com/VladislavShipovskoi/data-structures-and-algorithms/blob/main/data-structures/double-linked-list/double-linked-list.ts)
  
  ## Algorithms
  ### Sorting
