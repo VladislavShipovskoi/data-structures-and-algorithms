@@ -1,7 +1,7 @@
 class Node<T> {
   public next: Node<T> | null;
   constructor(public value: T, next?: Node<T>) {
-    this.next = next ? next : null;
+    this.next = next || null;
   }
 }
 
@@ -14,7 +14,8 @@ interface ILinkedList<T> {
   set(index: number, value: T): Node<T> | undefined;
   insert(index: number, value: T): Node<T> | undefined;
   remove(index: number): Node<T> | undefined;
-  traverse(): T[];
+  toArray(): T[];
+  fromArray(values: T[]): Node<T>;
 }
 
 class LinkedList<T> implements ILinkedList<T> {
@@ -26,7 +27,7 @@ class LinkedList<T> implements ILinkedList<T> {
     if (value) {
       const node = new Node(value);
       this.head = node;
-      this.tail = this.head;
+      this.tail = node;
       this.length = 1;
     } else {
       this.head = null;
@@ -35,12 +36,12 @@ class LinkedList<T> implements ILinkedList<T> {
     }
   }
 
-  public append(value: T): Node<T> {
+  append(value: T): Node<T> {
     const node = new Node(value);
 
     if (!this.length) {
       this.head = node;
-      this.tail = this.head;
+      this.tail = node;
     } else if (this.length && this.tail) {
       this.tail.next = node;
       this.tail = node;
@@ -50,11 +51,11 @@ class LinkedList<T> implements ILinkedList<T> {
     return this.tail as Node<T>;
   }
 
-  public prepend(value: T): Node<T> {
+  prepend(value: T): Node<T> {
     const node = new Node(value);
     if (!this.length) {
       this.head = node;
-      this.tail = this.head;
+      this.tail = node;
     } else {
       node.next = this.head;
       this.head = node;
@@ -79,7 +80,7 @@ class LinkedList<T> implements ILinkedList<T> {
     return node;
   }
 
-  public pop(): Node<T> | undefined {
+  pop(): Node<T> | undefined {
     if (!this.head) return undefined;
 
     let current = this.head;
@@ -170,7 +171,7 @@ class LinkedList<T> implements ILinkedList<T> {
     return node;
   }
 
-  public traverse(): T[] {
+  toArray(): T[] {
     const array: T[] = [];
     if (!this.head) {
       return array;
@@ -182,6 +183,11 @@ class LinkedList<T> implements ILinkedList<T> {
     };
 
     return addToArray(this.head);
+  }
+
+  fromArray(values: T[]): Node<T> {
+    values.forEach((value) => this.append(value));
+    return this.head as Node<T>;
   }
 }
 
