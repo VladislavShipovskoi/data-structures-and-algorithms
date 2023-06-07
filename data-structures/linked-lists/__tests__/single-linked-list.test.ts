@@ -11,42 +11,40 @@ describe("empty linked-list", () => {
 });
 
 describe("linked-list with items", () => {
-  const headNodeValue = 1;
-  const nodeValue = 2;
-
   describe("add items to linked-list", () => {
-    test("prepend", () => {
+    it("should prepend node to linked-list", () => {
       let list = new LinkedList();
-      const node1 = list.prepend(nodeValue);
-      const expectedValue = new Node(nodeValue);
+
+      const expectedValue = new Node(2);
+
+      const node1 = list.prepend(2);
       expect(_.isEqual(node1, expectedValue)).toBe(true);
       expect(_.isEqual(list.head, node1)).toBe(true);
       expect(_.isEqual(list.tail, node1)).toBe(true);
       expect(list.length).toBe(1);
 
-      const node2 = list.prepend(headNodeValue);
-      expect(_.isEqual(node2, new Node(headNodeValue, node1))).toBe(true);
+      const node2 = list.prepend(1);
+      expect(_.isEqual(node2, new Node(1, node1))).toBe(true);
       expect(_.isEqual(list.head, node2)).toBe(true);
       expect(_.isEqual(list.tail, node1)).toBe(true);
-
       expect(list.length).toBe(2);
     });
 
-    test("append", () => {
+    it("should append node to linked-list", () => {
       let list = new LinkedList();
-      const node1 = list.append(headNodeValue);
-      const node2 = list.append(nodeValue);
+      const node1 = list.append(1);
+      const node2 = list.append(2);
 
-      expect(_.isEqual(node2, new Node(nodeValue))).toBe(true);
+      expect(_.isEqual(node2, new Node(2))).toBe(true);
       expect(_.isEqual(list.head, node1)).toBe(true);
       expect(_.isEqual(list.tail, node2)).toBe(true);
       expect(list.length).toBe(2);
     });
 
-    test("insert", () => {
+    it("should insert node to linked-list", () => {
       let list = new LinkedList();
-      const node1 = list.append(headNodeValue);
-      const node2 = list.append(nodeValue);
+      const node1 = list.append(1);
+      const node2 = list.append(2);
       list.insert(1, 3);
       expect(_.isEqual(list.head, node1)).toBe(true);
       expect(_.isEqual(list.get(1), new Node(3, node2))).toBe(true);
@@ -56,10 +54,10 @@ describe("linked-list with items", () => {
   });
 
   describe("remove items from linked-list", () => {
-    test("shift", () => {
+    it("should shift node from linked-list", () => {
       let list = new LinkedList();
-      const node1 = list.prepend(nodeValue);
-      const node2 = list.prepend(headNodeValue);
+      const node1 = list.prepend(2);
+      const node2 = list.prepend(1);
 
       let removedhead = list.shift();
 
@@ -76,10 +74,10 @@ describe("linked-list with items", () => {
       expect(list.length).toBe(0);
     });
 
-    test("pop", () => {
+    it("should pop node from linked-list", () => {
       let list = new LinkedList();
-      const node1 = list.prepend(nodeValue);
-      const node2 = list.prepend(headNodeValue);
+      const node1 = list.prepend(2);
+      const node2 = list.prepend(1);
 
       let removedElement = list.pop();
 
@@ -88,10 +86,10 @@ describe("linked-list with items", () => {
       expect(_.isEqual(list.tail, node2)).toBe(true);
     });
 
-    test("remove", () => {
+    it("should remove node from linked-list", () => {
       let list = new LinkedList();
-      const node1 = list.append(headNodeValue);
-      const node2 = list.append(nodeValue);
+      const node1 = list.append(2);
+      const node2 = list.append(1);
       list.insert(1, 3);
 
       const removedNode = list.remove(1);
@@ -103,10 +101,10 @@ describe("linked-list with items", () => {
     });
   });
 
-  test("get", () => {
+  it("should get node from linked-list", () => {
     let list = new LinkedList();
-    const node1 = list.append(headNodeValue);
-    const node2 = list.append(nodeValue);
+    const node1 = list.append(1);
+    const node2 = list.append(2);
     const node3 = list.append(3);
 
     expect(_.isEqual(list.get(0), node1)).toBe(true);
@@ -114,20 +112,20 @@ describe("linked-list with items", () => {
     expect(_.isEqual(list.get(2), node3)).toBe(true);
   });
 
-  test("set", () => {
+  it("should set new value to linked-list node", () => {
     let list = new LinkedList();
-    list.append(headNodeValue);
-    list.append(nodeValue);
+    list.append(1);
+    list.append(2);
     list.append(3);
 
     const changedNode = list.set(1, 10);
     expect(_.isEqual(changedNode, list.get(1))).toBe(true);
   });
 
-  test("toArray", () => {
+  it("should convert linked-list to array", () => {
     let list = new LinkedList();
-    list.append(headNodeValue);
-    list.append(nodeValue);
+    list.append(1);
+    list.append(2);
     list.append(3);
 
     const expectedValue = [1, 2, 3];
@@ -135,7 +133,7 @@ describe("linked-list with items", () => {
     expect(list.toArray()).toStrictEqual(expectedValue);
   });
 
-  test("fromArray", () => {
+  it("should create linked-list from array", () => {
     const values = [1, 2, 3];
     const list = new LinkedList().fromArray(values);
 
