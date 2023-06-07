@@ -12,3 +12,5 @@ Algorithms and data structures in one place.
  - [Bubble sort](https://github.com/VladislavShipovskoi/data-structures-and-algorithms/blob/main/algorithms/sorting/bubble-sort.js)
  - [Selection sort](https://github.com/VladislavShipovskoi/data-structures-and-algorithms/blob/main/algorithms/sorting/selection-sort.js)
  - [Quick sort](https://github.com/VladislavShipovskoi/data-structures-and-algorithms/blob/main/algorithms/sorting/quick-sort.js)
+ ### Encoding/Decoding
+ - [RLE](https://github.com/VladislavShipovskoi/data-structures-and-algorithms/blob/main/algorithms/encoding-decoding/RLE.ts)
